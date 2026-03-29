@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dewanshu Singh | Senior .NET Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080c10;
+  --surface: #0d1117;
+  --surface2: #141b24;
+  --border: #1e2a38;
+  --accent: #00d9ff;
+  --accent2: #7b61ff;
+  --accent3: #00cc7a;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --heading: #f8fafc;
+  --nav-bg: rgba(8,12,16,0.75);
+}
+:root.light {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface2: #eef1f5;
+  --border: #dde2ea;
+  --accent: #0099bb;
+  --accent2: #5b44cc;
+  --accent3: #008f55;
+  --text: #2d3748;
+  --muted: #718096;
+  --heading: #1a202c;
+  --nav-bg: rgba(245,247,250,0.85);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.cursor {
+  width: 12px; height: 12px; background: var(--accent);
+  border-radius: 50%; position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999; mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 36px; height: 36px; border: 1.5px solid var(--accent);
+  border-radius: 50%; position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998; opacity: 0.5;
+}
+
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.25;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+:root.light body::before { opacity: 0.08; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.25rem 4rem; display: flex; align-items: center; justify-content: space-between;
+  background: var(--nav-bg); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); transition: background 0.3s, border-color 0.3s;
+}
+.nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; }
+.nav-logo span { color: var(--muted); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative;
+}
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+.nav-links a:hover { color: var(--heading); }
+.nav-links a:hover::after { width: 100%; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.theme-toggle {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--surface); color: var(--muted); font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; transition: border-color 0.2s, transform 0.3s, background 0.3s;
+}
+.theme-toggle:hover { border-color: var(--accent); transform: rotate(20deg); }
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 0.55rem 1.25rem;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: 4px;
+  text-decoration: none; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s;
+}
+.nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+#home { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; overflow: hidden; }
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,217,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,217,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+:root.light .hero-grid-bg {
+  background-image: linear-gradient(rgba(0,100,150,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,100,150,0.06) 1px, transparent 1px);
+}
+.hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,217,255,0.08) 0%, transparent 70%); top: -100px; right: -100px; pointer-events: none; }
+.hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(123,97,255,0.07) 0%, transparent 70%); bottom: 0; left: 0; pointer-events: none; }
+:root.light .hero-glow { background: radial-gradient(circle, rgba(0,153,187,0.1) 0%, transparent 70%); }
+:root.light .hero-glow2 { background: radial-gradient(circle, rgba(91,68,204,0.08) 0%, transparent 70%); }
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+.hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent3); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+.hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--accent3); }
+.hero-name { font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 800; line-height: 0.95; color: var(--heading); letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+.hero-name .line2 { color: transparent; -webkit-text-stroke: 1px rgba(128,128,128,0.3); }
+:root.light .hero-name .line2 { -webkit-text-stroke: 1px rgba(0,0,0,0.15); }
+.hero-role { font-family: 'Fraunces', serif; font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 300; font-style: italic; color: var(--accent); margin-bottom: 1.75rem; margin-top: 0.5rem; }
+.hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem; }
+.hero-stats { display: flex; gap: 3rem; margin-bottom: 2.5rem; }
+.stat { display: flex; flex-direction: column; }
+.stat-num { font-size: 2.25rem; font-weight: 800; color: var(--heading); line-height: 1; }
+.stat-num span { color: var(--accent); }
+.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.4rem; }
+.hero-btns { display: flex; gap: 1rem; align-items: center; }
+.btn-primary { padding: 0.9rem 2rem; background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; border-radius: 4px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 30px rgba(0,217,255,0.2); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,217,255,0.35); }
+.btn-secondary { padding: 0.9rem 2rem; border: 1px solid var(--border); color: var(--text); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; border-radius: 4px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.hero-badge {
+  position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+  width: 200px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 50%; background: var(--surface); gap: 0.5rem;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(-50%) translateY(0)} 50%{transform:translateY(-50%) translateY(-12px)} }
+.badge-avail { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent3); letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 0.4rem; }
+.badge-avail::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.badge-title { font-size: 0.85rem; font-weight: 700; color: var(--heading); text-align: center; }
+.badge-exp { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+
+section { padding: 6rem 4rem; position: relative; }
+.section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--heading); letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.1; }
+.section-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3.5rem; max-width: 500px; }
+
+#projects { background: var(--surface); transition: background 0.3s; }
+.project-tabs { display: flex; margin-bottom: 2.5rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; width: fit-content; transition: border-color 0.3s; }
+.project-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.7rem 1.75rem; background: transparent; color: var(--muted); border: none; cursor: none; transition: background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+.project-tab .tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); transition: background 0.2s; flex-shrink: 0; }
+.project-tab.active { background: var(--bg); color: var(--accent); }
+.project-tab.active .tab-dot { background: var(--accent); }
+.project-tab:not(.active):hover { color: var(--text); }
+.tab-divider { width: 1px; background: var(--border); flex-shrink: 0; }
+.projects-pane { display: none; }
+.projects-pane.active { display: block; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5px; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.3s; }
+.project-card { background: var(--bg); padding: 2.25rem; position: relative; overflow: hidden; transition: background 0.3s; }
+.project-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,217,255,0.05) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+.project-card:hover { background: var(--surface2); }
+.project-card:hover::before { opacity: 1; }
+.project-card.personal-featured { border-top: 2px solid var(--accent2); }
+.project-card.personal-featured::before { background: linear-gradient(135deg, rgba(123,97,255,0.07) 0%, transparent 60%); }
+.project-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--border); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+.project-live-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 20px; background: rgba(0,204,122,0.1); color: var(--accent3); border: 1px solid rgba(0,204,122,0.25); margin-bottom: 1rem; }
+.project-live-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+.project-icon { width: 44px; height: 44px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1.25rem; transition: border-color 0.3s, background 0.3s; }
+.project-card:hover .project-icon { border-color: var(--accent); }
+.project-name { font-size: 1.1rem; font-weight: 700; color: var(--heading); margin-bottom: 0.75rem; line-height: 1.3; }
+.project-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.3rem 0.6rem; border-radius: 3px; background: var(--surface); color: var(--muted); border: 1px solid var(--border); letter-spacing: 0.05em; transition: border-color 0.3s, background 0.3s; }
+.tag.accent { border-color: rgba(0,217,255,0.3); color: var(--accent); background: rgba(0,217,255,0.06); }
+.tag.purple { border-color: rgba(123,97,255,0.3); color: var(--accent2); background: rgba(123,97,255,0.06); }
+.project-link { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent2); text-decoration: none; margin-top: 1.25rem; letter-spacing: 0.05em; transition: color 0.2s; }
+.project-link:hover { color: var(--accent); }
+.project-link::after { content: ' ↗'; }
+
+#skills { text-align: center; }
+#skills .section-tag { justify-content: center; }
+#skills .section-tag::before { display: none; }
+#skills .section-sub { margin-left: auto; margin-right: auto; }
+.skills-wrapper { display: flex; flex-direction: column; gap: 2.5rem; }
+.skill-group { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+.skill-group-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); width: 100%; text-align: center; transition: border-color 0.3s; }
+.skill-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center; }
+.skill-badges img { height: 28px; border-radius: 4px; transition: transform 0.2s, opacity 0.2s; opacity: 0.9; }
+.skill-badges img:hover { transform: translateY(-2px); opacity: 1; }
+
+#experience { background: var(--surface); transition: background 0.3s; }
+.experience-timeline { display: flex; flex-direction: column; max-width: 800px; }
+.exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 2.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border); transition: border-color 0.3s; }
+.exp-item:last-child { border-bottom: none; }
+.exp-dates { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; padding-top: 0.35rem; line-height: 1.6; }
+.exp-title { font-size: 1.1rem; font-weight: 700; color: var(--heading); margin-bottom: 0.35rem; }
+.exp-company { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.05em; }
+.exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.exp-points li { font-size: 0.875rem; color: var(--muted); line-height: 1.65; padding-left: 1rem; position: relative; }
+.exp-points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.15rem; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-text p { font-size: 1rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.25rem; }
+.about-text p strong { color: var(--text); font-weight: 600; }
+.about-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; position: relative; overflow: hidden; transition: background 0.3s, border-color 0.3s; }
+.about-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.about-card-name { font-size: 1.5rem; font-weight: 800; color: var(--heading); margin-bottom: 0.35rem; }
+.about-card-role { font-family: 'Fraunces', serif; font-style: italic; color: var(--accent); font-size: 1rem; margin-bottom: 1.75rem; }
+.about-facts { display: flex; flex-direction: column; gap: 0.9rem; }
+.about-fact { display: flex; align-items: flex-start; gap: 1rem; font-size: 0.85rem; color: var(--muted); }
+.fact-icon { color: var(--accent); font-size: 0.75rem; margin-top: 0.15rem; flex-shrink: 0; }
+.about-divider { width: 100%; height: 1px; background: var(--border); margin: 1.5rem 0; transition: background 0.3s; }
+.about-stat-row { display: flex; gap: 2.5rem; }
+.about-stat { display: flex; flex-direction: column; }
+.about-stat-num { font-size: 1.75rem; font-weight: 800; color: var(--heading); }
+.about-stat-num span { color: var(--accent); }
+.about-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+#contact { background: var(--surface); transition: background 0.3s; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+.contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-item { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.25rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); transition: border-color 0.3s, background 0.3s; }
+.contact-item:hover { border-color: rgba(0,217,255,0.3); }
+.contact-item-icon { width: 36px; height: 36px; border-radius: 6px; background: rgba(0,217,255,0.08); border: 1px solid rgba(0,217,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.contact-item-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.35rem; }
+.contact-item-value { font-size: 0.9rem; color: var(--text); text-decoration: none; transition: color 0.2s; }
+.contact-item-value:hover { color: var(--accent); }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+input, textarea { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.8rem 1rem; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.875rem; outline: none; transition: border-color 0.2s, background 0.3s, color 0.3s; resize: vertical; }
+input:focus, textarea:focus { border-color: var(--accent); }
+textarea { min-height: 130px; }
+.btn-submit { padding: 0.9rem; background: var(--accent); color: var(--bg); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem; border: none; border-radius: 6px; cursor: none; letter-spacing: 0.05em; transition: box-shadow 0.2s, transform 0.2s; }
+.btn-submit:hover { box-shadow: 0 0 30px rgba(0,217,255,0.35); transform: translateY(-1px); }
+
+footer { padding: 2rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); transition: border-color 0.3s; }
+.footer-left { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; }
+.footer-left span { color: var(--accent3); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  #home { padding: 7rem 1.5rem 4rem; }
+  .hero-badge { display: none; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.75rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="#home" class="nav-logo">DS<span>://</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <a href="mailto:dewanshupratapkv12@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">DEWANSHU<br><span class="line2">SINGH</span></h1>
+    <div class="hero-role">Senior .NET Full Stack Developer</div>
+    <p class="hero-desc">I design and ship scalable enterprise web platforms using .NET Core, C#, and modern frontends. 3+ years turning complex requirements into clean, production-ready systems.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">3<span>+</span></span><span class="stat-label">Years Exp</span></div>
+      <div class="stat"><span class="stat-num">6<span>+</span></span><span class="stat-label">Projects</span></div>
+      <div class="stat"><span class="stat-num">40<span>%</span></span><span class="stat-label">Perf Gains</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-badge fade-in">
+    <div class="badge-avail">Available</div>
+    <div class="badge-title">Senior<br>.NET Dev</div>
+    <div class="badge-exp">New Delhi, India</div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-tag">Featured Work</div>
+  <h2 class="section-title">Projects That Ship</h2>
+  <p class="section-sub">Enterprise platforms at work, and SaaS products I build independently.</p>
+
+  <div class="project-tabs">
+    <button class="project-tab active" id="tab-professional" onclick="switchTab('professional')">
+      <span class="tab-dot"></span>Professional
+    </button>
+    <div class="tab-divider"></div>
+    <button class="project-tab" id="tab-personal" onclick="switchTab('personal')">
+      <span class="tab-dot"></span>Personal
+    </button>
+  </div>
+
+  <div class="projects-pane active" id="pane-professional">
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-num">01 — 2024</div>
+        <div class="project-icon">🔑</div>
+        <div class="project-name">Client License Management System</div>
+        <div class="project-desc">Full backend architecture with license key generation, validation, and renewal for multi-client environments. Automated Firebase project setup and Google OAuth2 integration.</div>
+        <div class="project-tags">
+          <span class="tag accent">.NET Core 6</span><span class="tag">SQL Server</span><span class="tag">Firebase</span><span class="tag purple">Google OAuth2</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">02 — 2023</div>
+        <div class="project-icon">🎥</div>
+        <div class="project-name">User On Air — Live Classes & Real-time Chat</div>
+        <div class="project-desc">Real-time chat and live class platform using Firebase. DRM-enabled encrypted video player for live and recorded classes. Redis caching for concurrent user performance.</div>
+        <div class="project-tags">
+          <span class="tag accent">.NET Core 6</span><span class="tag purple">Redis</span><span class="tag">Firebase</span><span class="tag">AngularJS</span><span class="tag">DRM</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">03 — 2023</div>
+        <div class="project-icon">📋</div>
+        <div class="project-name">Online Test Platform (Exam + Payment)</div>
+        <div class="project-desc">Core modules for test management, student analytics, reporting, and auto question paper generation. Windows Services for result processing with secure payment gateway.</div>
+        <div class="project-tags">
+          <span class="tag accent">.NET Core API</span><span class="tag">SQL Server</span><span class="tag purple">Redis</span><span class="tag">Payments</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">04 — 2022</div>
+        <div class="project-icon">🎓</div>
+        <div class="project-name">Student Information System (SIS)</div>
+        <div class="project-desc">Fee management, report generation, and student communication modules (SMS/Email/Push). PhonePe payment gateway, document parsing, and video players for live classes.</div>
+        <div class="project-tags">
+          <span class="tag accent">ASP.NET</span><span class="tag">AngularJS</span><span class="tag">Firebase</span><span class="tag purple">PhonePe</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">05 — 2022</div>
+        <div class="project-icon">🧪</div>
+        <div class="project-name">Exam on Air — Multi-format Exam Player</div>
+        <div class="project-desc">Multi-format exam players for Objective, NEET, JEE, and Subjective exams. Secure auth, real-time progress tracking, and dynamic reporting for teachers and admins.</div>
+        <div class="project-tags">
+          <span class="tag accent">ASP.NET</span><span class="tag">AngularJS</span><span class="tag purple">Redis</span><span class="tag">SQL Server</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">06 — 2022</div>
+        <div class="project-icon">📊</div>
+        <div class="project-name">E-Smart Result Processing System</div>
+        <div class="project-desc">Automated result processing and report generation for multi-branch institutions. Backend logic capable of handling large-scale data imports efficiently.</div>
+        <div class="project-tags">
+          <span class="tag accent">ASP.NET</span><span class="tag">C#</span><span class="tag">SQL Server</span><span class="tag purple">Angular</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="projects-pane" id="pane-personal">
+    <div class="projects-grid">
+
+      <div class="project-card personal-featured fade-in">
+        <div class="project-num">01 — 2025</div>
+        <div class="project-live-badge">Live · SaaS</div>
+        <div class="project-icon">🧠</div>
+        <div class="project-name">BloomAI — Bloom's Taxonomy Classifier</div>
+        <div class="project-desc">AI-powered SaaS that classifies learning objectives across all 6 Bloom's Taxonomy levels in under 100ms. Custom CNN model with GloVe embeddings — not a generic LLM. Multi-tier subscriptions (Starter, Teacher Pro, School, Enterprise) with Stripe + Razorpay and a Next.js frontend.</div>
+        <div class="project-tags">
+          <span class="tag purple">TorchSharp CNN</span><span class="tag accent">ASP.NET Core 8</span><span class="tag">Next.js</span><span class="tag">GloVe</span><span class="tag">Stripe</span><span class="tag">Razorpay</span><span class="tag">REST API</span>
+        </div>
+        <a href="https://bloom.blinkly.in/" target="_blank" class="project-link">bloom.blinkly.in</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-tag">Technical Stack</div>
+  <h2 class="section-title">Skills & Tools</h2>
+  <p class="section-sub">Technologies I work with daily to build enterprise-grade systems.</p>
+  <div class="skills-wrapper">
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#" />
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+        <img src="https://img.shields.io/badge/SQL-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white" alt="SQL" />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Backend</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET Core" />
+        <img src="https://img.shields.io/badge/.NET_Framework-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET Framework" />
+        <img src="https://img.shields.io/badge/ASP.NET_MVC-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET MVC" />
+        <img src="https://img.shields.io/badge/Web_API-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="Web API" />
+        <img src="https://img.shields.io/badge/Entity_Framework-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="EF Core" />
+        <img src="https://img.shields.io/badge/ADO.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ADO.NET" />
+        <img src="https://img.shields.io/badge/LINQ-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="LINQ" />
+        <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Frontend</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/AngularJS-E23237?style=for-the-badge&logo=angularjs&logoColor=white" alt="AngularJS" />
+        <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular" />
+        <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+        <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery" />
+        <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Database</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white" alt="SQL Server" />
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+        <img src="https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white" alt="Firebase" />
+        <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Cloud & DevOps</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/AWS_EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white" alt="AWS EC2" />
+        <img src="https://img.shields.io/badge/Azure_VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Azure VM" />
+        <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="GCP" />
+        <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+        <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Desktop & Mobile</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/.NET_MAUI-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET MAUI" />
+        <img src="https://img.shields.io/badge/WinForms-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="WinForms" />
+        <img src="https://img.shields.io/badge/WebForms-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="WebForms" />
+        <img src="https://img.shields.io/badge/Windows_Services-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows Services" />
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Tools & Integrations</div>
+      <div class="skill-badges">
+        <img src="https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visualstudio&logoColor=white" alt="Visual Studio" />
+        <img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="VS Code" />
+        <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman" />
+        <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white" alt="Jira" />
+        <img src="https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white" alt="Stripe" />
+        <img src="https://img.shields.io/badge/Google_OAuth2-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google OAuth2" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-tag">Career</div>
+  <h2 class="section-title">Experience</h2>
+  <p class="section-sub">Building and shipping at Yoctel Solutions.</p>
+  <div class="experience-timeline">
+
+    <div class="exp-item fade-in">
+      <div class="exp-dates">Apr 2024<br>— Present</div>
+      <div>
+        <div class="exp-title">Senior Full Stack Developer (.NET)</div>
+        <div class="exp-company">Yoctel Solutions Pvt Ltd · New Delhi</div>
+        <ul class="exp-points">
+          <li>Built scalable web apps with .NET 6 Web APIs, AngularJS, and SQL Server using layered architecture (Repository → Service → Controller).</li>
+          <li>Achieved 35–40% faster API response times by optimizing SQL queries, indexing, stored procedures, and Redis caching.</li>
+          <li>Built real-time features using Firebase Realtime DB and Signal-based async notifications.</li>
+          <li>Full SDLC ownership — requirement analysis, sprint planning, code reviews, and deployment on Azure/AWS/GCP.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-dates">Apr 2022<br>— Mar 2024</div>
+      <div>
+        <div class="exp-title">.NET Developer</div>
+        <div class="exp-company">Yoctel Solutions Pvt Ltd · New Delhi</div>
+        <ul class="exp-points">
+          <li>Developed and enhanced web applications using ASP.NET MVC, .NET Core, C#, SQL Server, JavaScript, and jQuery.</li>
+          <li>Created complex SQL queries, stored procedures, and triggers — resulting in 25–30% faster execution for data-heavy modules.</li>
+          <li>Designed and consumed REST APIs for seamless data exchange between backend and AngularJS frontend.</li>
+          <li>Implemented JWT-based authentication and role-based access control for system security.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-tag">Who I Am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm <strong>Dewanshu Singh</strong>, a Senior .NET Full Stack Developer based in <strong>New Delhi, India</strong>. I specialize in building enterprise-grade web platforms that are fast, secure, and maintainable.</p>
+      <p>With 3+ years at <strong>Yoctel Solutions</strong>, I've worked across the full stack — from designing layered .NET Core APIs and optimizing SQL Server queries, to building interactive AngularJS UIs and deploying on Azure, AWS, and GCP.</p>
+      <p>I'm passionate about <strong>performance engineering</strong> — consistently delivering 25–40% speed improvements through Redis caching, query optimization, and smart architectural decisions.</p>
+      <p>Beyond my day job, I'm building <strong>SaaS products</strong> with ML components — currently shipping BloomAI, a Bloom's Taxonomy classifier powered by a custom TorchSharp CNN model.</p>
+    </div>
+    <div class="about-card fade-in">
+      <div class="about-card-name">Dewanshu Singh</div>
+      <div class="about-card-role">Senior .NET Developer</div>
+      <div class="about-facts">
+        <div class="about-fact"><span class="fact-icon">▸</span><span>📍 New Delhi, India</span></div>
+        <div class="about-fact"><span class="fact-icon">▸</span><span>📧 dewanshupratapkv12@gmail.com</span></div>
+        <div class="about-fact"><span class="fact-icon">▸</span><span>📞 +91-8851177884</span></div>
+        <div class="about-fact"><span class="fact-icon">▸</span><span>🎓 BCA — Jamia Hamdard University (2019–2022)</span></div>
+        <div class="about-fact"><span class="fact-icon">▸</span><span>🏢 Currently at Yoctel Solutions Pvt Ltd</span></div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-stat-row">
+        <div class="about-stat"><span class="about-stat-num">3<span>+</span></span><span class="about-stat-label">Years</span></div>
+        <div class="about-stat"><span class="about-stat-num">6<span>+</span></span><span class="about-stat-label">Projects</span></div>
+        <div class="about-stat"><span class="about-stat-num">40<span>%</span></span><span class="about-stat-label">Perf Gains</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <p class="section-sub">Open to full-time roles, freelance projects, and SaaS collaborations.</p>
+  <div class="contact-grid">
+    <div class="contact-info fade-in">
+      <div class="contact-item">
+        <div class="contact-item-icon">📧</div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <a href="mailto:dewanshupratapkv12@gmail.com" class="contact-item-value">dewanshupratapkv12@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <a href="tel:+918851177884" class="contact-item-value">+91-8851177884</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">💼</div>
+        <div>
+          <div class="contact-item-label">LinkedIn</div>
+          <a href="https://linkedin.com/in/dewanshu-singh-73a62514b/" target="_blank" class="contact-item-value">linkedin.com/in/dewanshu-singh</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div>
+          <div class="contact-item-label">Location</div>
+          <span class="contact-item-value">New Delhi, India</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div class="form-row">
+        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
+      </div>
+      <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?" /></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+      <button class="btn-submit" onclick="alert('Connect to Formspree or EmailJS for live sending!')">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2026 Dewanshu Singh · Made with <span>♥</span> in New Delhi</div>
+  <div class="footer-links">
+    <a href="mailto:dewanshupratapkv12@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/dewanshu-singh-73a62514b/" target="_blank">LinkedIn</a>
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(pane) {
+  document.querySelectorAll('.projects-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.project-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('pane-' + pane).classList.add('active');
+  document.getElementById('tab-' + pane).classList.add('active');
+}
+
+var toggleBtn = document.getElementById('themeToggle');
+var isLight = false;
+toggleBtn.addEventListener('click', function() {
+  isLight = !isLight;
+  document.documentElement.classList.toggle('light', isLight);
+  toggleBtn.textContent = isLight ? '🌑' : '🌙';
+});
+
+var cursor = document.getElementById('cursor');
+var ring = document.getElementById('cursor-ring');
+var mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cursor.style.transform = 'translate(' + (mx-6) + 'px,' + (my-6) + 'px)';
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  ring.style.transform = 'translate(' + (rx-18) + 'px,' + (ry-18) + 'px)';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el){ observer.observe(el); });
+
+document.querySelectorAll('.project-card, .skill-group').forEach(function(el, i){
+  el.style.transitionDelay = (i % 3) * 80 + 'ms';
+});
+</script>
+</body>
+</html>
